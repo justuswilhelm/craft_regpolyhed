@@ -15,13 +15,14 @@ def margin(angle, size, v1, v2):
     return np.c_[v2, v4, v3, v1].T
 
 
-def regular_polygon(n, v1, v2):
+def regular_polygon(n, v1, v2, draw_extra=False):
+    assert isinstance(n, int)
     ang = 2 * np.pi / n
     mat = rotation_matrix(ang)
     vs = np.c_[v1, v2]
     vv = v2 - v1
     vprev = v2
-    for i in range(n - 2):
+    for i in range(n - 1 if draw_extra else n - 2):
         v = np.dot(mat, vv) + vprev
         vs = np.c_[vs, v]
         vv = v - vprev
